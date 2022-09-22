@@ -1,12 +1,11 @@
-const express = require("express");
-const router = express.Router();
-// const actions = require("../../model/index");
+const express = require('express')
+const router = express.Router()
 const {
   validCreateContact,
   validUpdateContacts,
   validUpdateStatus,
   validQueryContact,
-} = require("./validation");
+} = require('./validation')
 
 const {
   getAll,
@@ -15,20 +14,20 @@ const {
   rmContactById,
   updateContactsById,
   updateStatusFav,
-} = require("../../controllers/films");
+} = require('../../controllers/films')
 
-const guard = require("../../helper/guard");
+const guard = require('../../helper/guard')
 
-router.get("/", guard, validQueryContact, getAll);
+router.get('/', guard, validQueryContact, getAll)
 
-router.get("/:filmId", guard, getById);
+router.get('/:filmId', guard, getById)
 
-router.post("/", guard, validCreateContact, createContact);
+router.post('/', guard, validCreateContact, createContact)
 
-router.patch("/:filmId", guard, validUpdateContacts, updateContactsById);
+router.patch('/:filmId', guard, validUpdateContacts, updateContactsById)
 
-router.patch("/:filmId/favorite", guard, validUpdateStatus, updateStatusFav);
+router.patch('/:filmId/favorite', guard, validUpdateStatus, updateStatusFav)
 
-router.delete("/:filmId", guard, rmContactById);
+router.delete('/:filmId', guard, rmContactById)
 
-module.exports = router;
+module.exports = router

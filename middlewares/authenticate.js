@@ -17,20 +17,17 @@ const googleParams = {
 }
 
 const googleCallback = async (req, accessToken, refreshToken, profile, done) => {
-    console.log(req, 'soory');
     try {
-    const { email, name } = profile
-    const user = await User.findOne(email)
-    if (user) {
-        return done(null, user)
-    }
-    else {
-        const newUser = await User.create({ email, name })
-        done(null, newUser)
+        const { displayName } = profile
+        const email = profile.emails[0].value
+        const user = await User.findOne({ email: email })
+        if(user){
+            return done(null, user);
         }
-    }
-    catch (error) {
-        done(error, false)
+        const newUser = await User.create({email: email, name: displayName});
+        done(null, newUser);
+    } catch (error) {
+        done(error, false);
     }
    
 }
